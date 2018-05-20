@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 
 public class FragmentTab1 extends Fragment {
 
+    int i=0;
 
     private DBOpenHelper mDbOpenHelper;
     String sort = "name";
@@ -93,12 +95,17 @@ public class FragmentTab1 extends Fragment {
         mDbOpenHelper = new DBOpenHelper(this.getContext());
         mDbOpenHelper.open();
         mDbOpenHelper.create();
-
+        mDbOpenHelper.deleteAllColumns();
 
         mDbOpenHelper.insertColumn(R.drawable.ppic_01, "13학번", "ㅋㅋ");
         mDbOpenHelper.insertColumn(R.drawable.ppic_02, "14학번", "ㅇㅇ");
         mDbOpenHelper.insertColumn(R.drawable.ppic_03, "네즈", "ㅎㅇㅎㅇ");
         mDbOpenHelper.insertColumn(R.drawable.ppic_04, "쪙", "ㅍㅍㅍㅍ");
+        for (int i=0; i<20; i++) {
+            mDbOpenHelper.insertColumn(R.drawable.basic_pic, "누구 "+(i++), "");
+        }
+
+
 
         arrayData =  new ArrayList<>();
         showDatabase(sort);
@@ -114,8 +121,8 @@ public class FragmentTab1 extends Fragment {
     }
 
     public void showDatabase(String sort){
-        Cursor iCursor = mDbOpenHelper.selectColumns();
-        Log.d("showDatabase", "DB Size: " + iCursor.getCount());
+        Cursor iCursor = mDbOpenHelper.sortColumn(sort);
+        Log.e("showDatabase", "DB Size: " + iCursor.getCount());
 
         while(iCursor.moveToNext()){
             ListViewItem data = new ListViewItem(

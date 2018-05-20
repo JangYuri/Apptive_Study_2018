@@ -21,7 +21,7 @@ import java.util.Date;
 public class FragmentTab2 extends Fragment {
 
     private DBOpenHelper_Room mDbOpenHelper;
-    String sort = "name";
+    String sort = "time";
 
     ListViewAdapter2 mAdapter;
     static ArrayList<ListViewItem> arrayData;
@@ -36,15 +36,16 @@ public class FragmentTab2 extends Fragment {
         mDbOpenHelper = new DBOpenHelper_Room(this.getContext());
         mDbOpenHelper.open();
         mDbOpenHelper.create();
+        mDbOpenHelper.deleteAllColumns();
 
 
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("hh:mm");
 
         mDbOpenHelper.insertColumn(R.drawable.ppic_01, "1415", "asdf", formatter.format(date));
-        mDbOpenHelper.insertColumn(R.drawable.ppic_01, "2222", "rtw",  formatter.format(date));
-        mDbOpenHelper.insertColumn(R.drawable.ppic_01, "3333", "ert",  formatter.format(date));
-        mDbOpenHelper.insertColumn(R.drawable.ppic_01, "ee33", "wrt",  formatter.format(date));
+        mDbOpenHelper.insertColumn(R.drawable.ppic_02, "2222", "rtw",  formatter.format(date));
+        mDbOpenHelper.insertColumn(R.drawable.ppic_03, "3333", "ert",  formatter.format(date));
+        mDbOpenHelper.insertColumn(R.drawable.ppic_04, "ee33", "wrt",  formatter.format(date));
 
         arrayData =  new ArrayList<>();
         showDatabase(sort);
@@ -70,7 +71,7 @@ public class FragmentTab2 extends Fragment {
     }
 
     public void showDatabase(String sort){
-        Cursor iCursor = mDbOpenHelper.selectColumns();
+        Cursor iCursor = mDbOpenHelper.sortColumn(sort);
         Log.d("showDatabase", "DB Size: " + iCursor.getCount());
 
         while(iCursor.moveToNext()){

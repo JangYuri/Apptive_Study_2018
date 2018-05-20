@@ -55,6 +55,11 @@ public class DBOpenHelper_Room {
         mDB.close();
     }
 
+    // Delete All
+    public void deleteAllColumns() {
+        mDB.delete(ListViewItem.CreateChatRoom._TABLENAME1, null, null);
+    }
+
     // Insert DB
     public long insertColumn(int userimage, String chatname, String lastwords, String time){
         ContentValues values = new ContentValues();

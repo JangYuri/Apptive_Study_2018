@@ -55,6 +55,11 @@ public class DBOpenHelper {
         mDB.close();
     }
 
+    // Delete All
+    public void deleteAllColumns() {
+        mDB.delete(ListViewItem.CreateFriendsList._TABLENAME0, null, null);
+    }
+
     // Insert DB
     public long insertColumn(long userimage, String name, String message){
         ContentValues values = new ContentValues();
